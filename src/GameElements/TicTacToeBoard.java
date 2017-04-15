@@ -1,5 +1,6 @@
-package GameElements;
-import Exceptions.InvalidMoveException;
+package gameelements;
+
+import exceptions.InvalidMoveException;
 
 public class TicTacToeBoard implements Board<char[][]>{
 	char[][] board;

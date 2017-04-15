@@ -1,10 +1,10 @@
-package GameElements;
+package gameelements;
 
-public class TicTacToePlayer extends Player { 
+public class TicTacToePlayer extends Player {
 	public TicTacToePlayer(char playerChar) {
-		super(playerChar); 
+		super(playerChar);
 	}
-	
+
 	public int getScore(Board boardState) {
 		boardState.getGameState();
 		return this.score;

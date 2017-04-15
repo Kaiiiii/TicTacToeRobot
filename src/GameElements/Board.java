@@ -1,4 +1,4 @@
-package GameElements;
+package gameelements;
 
 public interface Board<T> {
 	public void newGame(); 

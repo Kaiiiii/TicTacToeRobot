@@ -1,4 +1,4 @@
-package Exceptions;
+package exceptions;
 
 public class InvalidMoveException extends Exception {
 	public InvalidMoveException(String...validPositions) {
