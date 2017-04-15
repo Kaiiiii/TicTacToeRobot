@@ -1,17 +1,20 @@
-package gameelements;
+package GameElements;
 
-public abstract class Player {
+public class Player{
 	char playerChar;
 	int score;
-
-	public abstract int getScore(Board boardState);
 
 	public Player (char playerChar) {
 		this.playerChar = playerChar;
 		this.score = 0;
 	}
 
-	public char getSymbol() {
+	public int getScore(Board boardState) {
+		boardState.getGameState();
+		return this.score;
+	}
+
+	public char getChar() {
 		return this.playerChar;
 	}
 }
