@@ -1,5 +1,7 @@
 package GameElements;
 
+import Exceptions.SameMoveException;
+
 public class Board{
 	static final int BOARD_DIMENSIONS = 3;
 	
@@ -13,7 +15,10 @@ public class Board{
 		return this.board;
 	}
 
-	public Board move(Player player, int row, int column){
+	public Board move(Player player, int row, int column) throws SameMoveException{
+		if (this.board[row][column] != Character.MIN_VALUE)
+			throw new SameMoveException(this.board[row][column]);
+		
 		this.board[row][column] = player.getChar();
 		return this;
 	}
