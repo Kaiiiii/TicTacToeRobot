@@ -29,24 +29,28 @@ public class Game {
 		
 		Scanner input = new Scanner(System.in);
 		
-		try{
-			while()
-			System.out.println("Please enter the next move for player " + currPlayer.getChar() + ".");
-			
-			int row = Integer.parseInt(input.next());
-			int column = Integer.parseInt(input.next());
-
-			if (row < 0 || row > 3 || column < 0 || column > 3){
-				throw new InvalidMoveException();
+		while(!board.gameEnded()){
+			try{
+				System.out.println("Please enter the next move for player " + currPlayer.getChar() + ".");
+				
+				int row = Integer.parseInt(input.next());
+				int column = Integer.parseInt(input.next());
+	
+				if (row < 0 || row > 3 || column < 0 || column > 3){
+					throw new InvalidMoveException();
+				}
+				board.move(currPlayer, row, column);
+			} catch(Exception e){
+				System.out.println("blah");
+				System.out.println(e.getMessage());
 			}
-			board.move(currPlayer, row, column);
-		} catch(Exception e){
-			System.out.println("blah");
-			System.out.println(e.getMessage());
+			
+			
+			currPlayer = nextPlayer(firstPlayer, secondPlayer, currPlayer);
+			printBoard(board.getGameState());
 		}
 		
-		
-		currPlayer = nextPlayer(firstPlayer, secondPlayer, currPlayer);
-		printBoard(board.getGameState());
+		System.out.println();
+		System.out.println(Character.toString(board.gameWinner(firstPlayer, secondPlayer).getChar()) + " wins!");
 	}
 }

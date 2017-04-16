@@ -19,18 +19,33 @@ public class Board{
 	}
 	
 	public Player gameWinner(Player player1, Player player2){
+		if (!gameEnded()) return null;
+		
 		char horizontalWinner = horizontalMatches();
 		char verticalWinner = verticalMatches(); 
 		char diagonalWinner = diagonalMatches();
-		
-		char winnerChar = horizontalMatches();
-		if (winnerChar == Character.MIN_VALUE) winnerChar = verticalMatches();
+		char winnerChar = Character.MIN_VALUE;
 		
 		if (horizontalWinner != Character.MIN_VALUE) winnerChar = horizontalWinner;
 		else if (verticalWinner != Character.MIN_VALUE) winnerChar = verticalWinner;
 		else if (diagonalWinner != Character.MIN_VALUE) winnerChar = diagonalWinner;
 		
+		if (winnerChar == player1.getChar()) return player1; 
+		if (winnerChar == player2.getChar()) return player2;
+		
 		return null;
+	}
+	
+	public boolean gameEnded(){
+		char horizontalWinner = horizontalMatches();
+		char verticalWinner = verticalMatches(); 
+		char diagonalWinner = diagonalMatches();
+		
+		if (horizontalWinner != Character.MIN_VALUE) return true;
+		if (verticalWinner != Character.MIN_VALUE) return true;
+		if (diagonalWinner != Character.MIN_VALUE) return true;
+		
+		return false;
 	}
 	
 	private char horizontalMatches() {
@@ -73,7 +88,7 @@ public class Board{
 	private char diagonalMatches() {
 		char diagChar = this.board[0][0];
 		for (int i = 1; i < BOARD_DIMENSIONS; i++) {
-			if (diagChar == this.board[i][i]){
+			if (diagChar != this.board[i][i]){
 				diagChar = Character.MIN_VALUE;
 				break;
 			}
@@ -83,9 +98,9 @@ public class Board{
 			return diagChar;
 		}
 		
-		diagChar = this.board[0][3];
+		diagChar = this.board[0][2];
 		for (int i = 1; i < BOARD_DIMENSIONS; i++){
-			if (diagChar == this.board[i][BOARD_DIMENSIONS-i-1]){
+			if (diagChar != this.board[i][BOARD_DIMENSIONS-i-1]){
 				diagChar = Character.MIN_VALUE;
 				break;
 			}
