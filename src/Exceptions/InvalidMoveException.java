@@ -5,12 +5,14 @@ public class InvalidMoveException extends Exception {
 		super(getErrorMsg(validPositions));
 	}
 
-	private static String getErrorMsg(String... validPositions) {
-		String errorMsg = "That is not a valid move in this board! Valid board positions: \n";
+	private static String getErrorMsg(String...validPositions) {
+		String errorMsg = "---\n\tThat is not a valid move in this board! Valid board positions:";
 
 		for (String position : validPositions) {
-			errorMsg.concat("\t-" + position + "\n");
+			errorMsg = errorMsg.concat("\n\t\t- " + position);
 		}
+		
+		errorMsg = errorMsg.concat("\n---");
 
 		return errorMsg;
 	}
