@@ -1,6 +1,7 @@
 package GameElements;
 
 import Exceptions.SameMoveException;
+import GameElements.AbstractClasses.Player;
 
 public class Board{
 	static final int BOARD_DIMENSIONS = 3;

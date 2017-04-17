@@ -3,7 +3,7 @@ import java.util.Scanner;
 import Exceptions.InvalidMoveException;
 import Exceptions.SameMoveException;
 import GameElements.Board;
-import GameElements.Player;
+import GameElements.AbstractClasses.Player;
 
 public class Game {
 	private static Player nextPlayer (Player firstPlayer, Player secondPlayer, Player currPlayer){
