@@ -53,7 +53,10 @@ public class Game {
 			printBoard(board.getGameState());
 		}
 		
-		System.out.println();
-		System.out.println(Character.toString(board.gameWinner(firstPlayer, secondPlayer).getChar()) + " wins!");
+		System.out.print("\n>> ");
+		Player winner = board.gameWinner(firstPlayer, secondPlayer);
+		
+		if (winner != null) System.out.println(Character.toString(winner.getChar()) + " wins!");
+		else System.out.println("It's a draw!");
 	}
 }

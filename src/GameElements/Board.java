@@ -49,6 +49,7 @@ public class Board{
 		if (horizontalWinner != Character.MIN_VALUE) return true;
 		if (verticalWinner != Character.MIN_VALUE) return true;
 		if (diagonalWinner != Character.MIN_VALUE) return true;
+		if (allPositionsFull()) return true;
 		
 		return false;
 	}
@@ -116,5 +117,14 @@ public class Board{
 		}
 		
 		return Character.MIN_VALUE;
+	}
+	
+	private boolean allPositionsFull(){
+		for (int i = 0; i < BOARD_DIMENSIONS; i++){
+			for (int j = 0; j < BOARD_DIMENSIONS; j++){
+				if (this.board[i][j] == Character.MIN_VALUE) return false;
+			}
+		}
+		return true;
 	}
 }
