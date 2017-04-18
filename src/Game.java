@@ -1,8 +1,9 @@
 import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
 
-import Exceptions.InvalidMoveException;
 import Exceptions.SameMoveException;
 import GameElements.Board;
+import GameElements.DumbPlayer;
 import GameElements.AbstractClasses.Player;
 
 public class Game {
@@ -25,25 +26,23 @@ public class Game {
 	public static void main(String[] args){
 		Board board = new Board();
 		
-		Player firstPlayer = new Player('o'); 
-		Player secondPlayer = new Player('x'); 
+		Player firstPlayer = new DumbPlayer('o'); 
+		Player secondPlayer = new DumbPlayer('x'); 
 		Player currPlayer = firstPlayer;
 		
 		Scanner input = new Scanner(System.in);
 		
 		while(!board.gameEnded()){
 			try{
-				System.out.println("Please enter the next move for player " + currPlayer.getChar() + ".");
+				System.out.println("Player " + currPlayer.getChar() + "'s turn!");
+				int[] nextMove = currPlayer.nextMove(board);
+				System.out.println(">> Player " + currPlayer.getChar() + "has chosen row " +  
+									nextMove[0] + " col " + nextMove[1] + ".");
 				
-				int row = Integer.parseInt(input.next());
-				int column = Integer.parseInt(input.next());
-	
-				if (row < 0 || row > 2 || column < 0 || column > 2){
-					throw new InvalidMoveException("rows: 0 - 2", "columns: 0 - 2");
-				}
-				board.move(currPlayer, row, column);
+				board.move(currPlayer, nextMove[0], nextMove[1]);
 				currPlayer = nextPlayer(firstPlayer, secondPlayer, currPlayer);
 				
+				TimeUnit.SECONDS.sleep(1);
 			} catch(SameMoveException sme){
 				System.out.println(sme.getMessage());
 			} catch(Exception e){
