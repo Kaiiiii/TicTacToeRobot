@@ -11,17 +11,29 @@ public class Board{
 	public Board(){
 		this.board = new char[BOARD_DIMENSIONS][BOARD_DIMENSIONS];
 	}
+	
+	public Board clone() {
+	    Board newBoard = new Board();
+	    newBoard.board = copyBoard(this.board, BOARD_DIMENSIONS);
+	    
+	    return newBoard;
+	}
 
 	public char[][] getGameState() {
 		return this.board;
 	}
 
 	public Board move(Player player, int row, int column) throws SameMoveException{
-		if (this.board[row][column] != Character.MIN_VALUE)
-			throw new SameMoveException(this.board[row][column]);
+		if (!isPositionEmpty(row, column)) throw new SameMoveException(this.board[row][column]);
 		
 		this.board[row][column] = player.getChar();
 		return this;
+	}
+	
+	public boolean isPositionEmpty(int row, int column){
+		if (this.board[row][column] != Character.MIN_VALUE)
+			return false;
+		return true;
 	}
 	
 	public Player gameWinner(Player player1, Player player2){
@@ -127,5 +139,16 @@ public class Board{
 			}
 		}
 		return true;
+	}
+	
+	private char[][] copyBoard(char[][] original, int dimension){
+		char[][] copy = new char[dimension][dimension];
+		
+		for (int i = 0; i < dimension; i++){
+			for (int j = 0; j < dimension; j++){
+				copy[i][j] = original[i][j];
+			}
+		}
+		return copy;
 	}
 }
