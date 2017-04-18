@@ -1,5 +1,6 @@
 package GameElements;
 
+import Exceptions.SameMoveException;
 import GameElements.AbstractClasses.Player;
 
 public class DumbPlayer extends Player{
@@ -30,14 +31,127 @@ public class DumbPlayer extends Player{
 				w4_interceptedRow * boardAnalysis[3];
 	}
 	
-	
-	//TODO: mocked this
 	public int[] nextMove(Board boardState) {
-		return new int[] {0, 0};
+		int boardDimension = boardState.BOARD_DIMENSIONS;
+		double highestScore = 0;  
+		int[] posOfHighest = {0, 0};
+		double mockScore ;
+		
+		Board mockBoard = boardState.clone();
+		
+		for (int i = 0; i < boardDimension; i++){
+			for (int j = 0; j < boardDimension; j++){
+				mockScore = 0;
+				if (!boardState.isPositionEmpty(i, j)) continue;
+				else {
+					try{
+						mockBoard.move(this, i, j);
+					}catch (SameMoveException sme){
+						continue;
+					}
+					mockScore = getScore(mockBoard); 
+					
+					if (mockScore > highestScore){
+						highestScore = mockScore; 
+						posOfHighest[0] = i;
+						posOfHighest[1] = j;
+					}
+				}
+			}
+		}
+		return posOfHighest;
 	}
 	
-	//TODO: mocked this
-	private int[] analyzeBoard(Board boardState){
-		return new int[] {0, 0, 0, 0};
+	private int[] analyzeBoard(Board boardState){		
+		int[] boardScore = {0, 0, 0, 0};
+		boardScore = analyzeHorizontal(boardState, boardScore);
+		boardScore = analyzeVertical(boardState, boardScore);
+		boardScore = analyzeDiagonal(boardState, boardScore);
+		
+		return boardScore;
+	}
+	
+	private int[] analyzeHorizontal(Board boardState, int[] boardScore){
+		int[] score = boardScore;
+		int boardDimensions = boardState.BOARD_DIMENSIONS, 
+			ownCount, 
+			enemyCount;
+		char[][] board = boardState.getGameState();
+		
+		for (int i = 0; i < boardDimensions; i++ ) {
+			ownCount = 0; 
+			enemyCount = 0;
+			
+			for (int j = 0; j < boardDimensions; j++) {
+				if (board[i][j] == this.playerChar) ownCount ++; 
+				else enemyCount ++; 
+			}
+			
+			score = tallyRow(ownCount, enemyCount, score);
+		}
+		return score;
+	}
+	
+	private int[] analyzeVertical(Board boardState, int[] boardScore){
+		int[] score = boardScore;
+		int boardDimensions = boardState.BOARD_DIMENSIONS, 
+				ownCount, 
+				enemyCount;
+		char[][] board = boardState.getGameState();
+		
+		for (int i = 0; i < boardDimensions; i++) {
+			ownCount = 0; 
+			enemyCount = 0;
+			
+			for (int j = 0; j < boardDimensions; j++){
+				if (board[j][i] == this.playerChar) ownCount ++; 
+				else enemyCount ++;
+			}
+			
+			score = tallyRow(ownCount, enemyCount, score);
+		}
+		return score;
+	}
+	
+	private int[] analyzeDiagonal(Board boardState, int[] boardScore){
+		int[] score = boardScore;
+		int boardDimensions = boardState.BOARD_DIMENSIONS, 
+				ownCount = 0, 
+				enemyCount = 0;
+		char[][] board = boardState.getGameState();
+		
+		for (int i = 0; i < boardDimensions; i++){
+			if (board[i][i] == this.playerChar) ownCount ++;
+			else enemyCount ++;
+		}
+		
+		score = tallyRow(ownCount, enemyCount, score);
+		ownCount = 0; 
+		enemyCount = 0;
+		
+		for (int i = 0; i < boardDimensions; i++){
+			if (board[i][boardDimensions-i-1] == this.playerChar) ownCount ++;
+			else enemyCount ++;
+		}
+		
+		score = tallyRow(ownCount, enemyCount, score);
+		return score;
+	}
+	
+	private int[] tallyRow(int ownCount, int enemyCount, int[] currScore){
+		int[] score = currScore;
+		
+		if (ownCount >= 2){ 
+			score[0] ++;
+			
+			if (enemyCount > 0) score[3] ++;
+		}
+		else if (enemyCount >= 2){
+			score[1] ++;
+			
+			if (ownCount > 0) score[2] ++;
+		}
+		
+		return score;
 	}
 }
