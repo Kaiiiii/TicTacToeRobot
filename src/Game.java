@@ -36,20 +36,19 @@ public class Game {
 			try{
 				System.out.println("Player " + currPlayer.getChar() + "'s turn!");
 				int[] nextMove = currPlayer.nextMove(board);
-				System.out.println(">> Player " + currPlayer.getChar() + "has chosen row " +  
+				System.out.println(">> Player " + currPlayer.getChar() + " has chosen row " +  
 									nextMove[0] + " col " + nextMove[1] + ".");
 				
 				board.move(currPlayer, nextMove[0], nextMove[1]);
 				currPlayer = nextPlayer(firstPlayer, secondPlayer, currPlayer);
 				
-				TimeUnit.SECONDS.sleep(1);
+				printBoard(board.getGameState());
+//				TimeUnit.SECONDS.sleep(3);
 			} catch(SameMoveException sme){
 				System.out.println(sme.getMessage());
 			} catch(Exception e){
 				System.out.println(e.getMessage());
 			}
-			
-			printBoard(board.getGameState());
 		}
 		
 		System.out.print("\n>> ");
