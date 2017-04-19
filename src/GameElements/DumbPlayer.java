@@ -4,17 +4,6 @@ import Exceptions.SameMoveException;
 import GameElements.AbstractClasses.Player;
 
 public class DumbPlayer extends Player{
-	//Get own double row 
-	//Get enemy double row 
-	//Get own intercept 
-	//Get enemy intercept
-	
-	/*Get double row
-	 * returns [int, int, int, int]
-	 * doubleOwnRow, doubleEnemyRow, interceptRow, interceptedRow
-	 * count symbol on each row :D :D :D :D :D :D :D  
-	*/
-	
 	public DumbPlayer(char playerChar){
 		super(playerChar); 
 		this.w1_doubleOwnRow = 20;
