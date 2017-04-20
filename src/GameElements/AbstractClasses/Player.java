@@ -14,9 +14,16 @@ public abstract class Player{
 					w5_completedOwnRow, 
 					w6_completedEnemyRow; 
 	
-	public Player (char playerChar) {
+	public Player (char playerChar, double w1, double w2, double w3, double w4, double w5, double w6) {
 		this.playerChar = playerChar;
 		this.score = 0;
+		
+		this.w1_doubleOwnRow = w1;
+		this.w2_doubleEnemyRow = w2;
+		this.w3_interceptRow = w3;
+		this.w4_interceptedRow = w4;
+		this.w5_completedOwnRow = w5;
+		this.w6_completedEnemyRow = w6;
 	}
 
 	public char getChar() {
@@ -52,7 +59,7 @@ public abstract class Player{
 		return posOfHighest;
 	}
 	
-	private int[] analyzeBoard(Board boardState){		
+	protected int[] analyzeBoard(Board boardState){		
 		int[] boardScore = {0, 0, 0, 0, 0, 0};
 		boardScore = analyzeHorizontal(boardState, boardScore);
 		boardScore = analyzeVertical(boardState, boardScore);
