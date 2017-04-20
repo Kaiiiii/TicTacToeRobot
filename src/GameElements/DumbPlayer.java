@@ -10,7 +10,7 @@ public class DumbPlayer extends Player{
 		this.w2_doubleEnemyRow = -30;
 		this.w3_interceptRow = 60;
 		this.w4_interceptedRow = -30;
-		this.w5_completedOwnRow = 50;
-		this.w6_completedEnemyRow = -50;
+		this.w5_completedOwnRow = 100;
+		this.w6_completedEnemyRow = -100;
 	}
 }

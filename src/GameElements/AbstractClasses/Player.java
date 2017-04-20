@@ -5,9 +5,9 @@ import GameElements.Board;
 
 public abstract class Player{
 	protected char playerChar;
-	protected int score;
+	protected double score;
 	
-	protected int w1_doubleOwnRow, 
+	protected double w1_doubleOwnRow, 
 					w2_doubleEnemyRow, 
 					w3_interceptRow,
 					w4_interceptedRow, 
@@ -25,7 +25,7 @@ public abstract class Player{
 	
 	public int[] nextMove(Board boardState) {
 		int boardDimension = boardState.BOARD_DIMENSIONS;
-		int highestScore = Integer.MIN_VALUE, 
+		double highestScore = Integer.MIN_VALUE, 
 			mockScore;  
 		int[] posOfHighest = {-1, -1};
 		
@@ -47,6 +47,8 @@ public abstract class Player{
 				}
 			}
 		}
+		
+		this.score = highestScore;
 		return posOfHighest;
 	}
 	
@@ -60,7 +62,7 @@ public abstract class Player{
 	}
 	
 	
-	public int getScore(Board boardState){
+	private double getScore(Board boardState){
 		int[] boardAnalysis = analyzeBoard(boardState);
 		
 		if (boardAnalysis[4] > 0) return w5_completedOwnRow;
