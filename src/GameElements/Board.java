@@ -36,22 +36,20 @@ public class Board{
 		return true;
 	}
 	
-	public Player gameWinner(Player player1, Player player2){
-		if (!gameEnded()) return null;
+	public char gameWinner(){
+		char winnerChar = Character.MIN_VALUE;
+		
+		if (!gameEnded()) return winnerChar;
 		
 		char horizontalWinner = horizontalMatches();
 		char verticalWinner = verticalMatches(); 
 		char diagonalWinner = diagonalMatches();
-		char winnerChar = Character.MIN_VALUE;
 		
 		if (horizontalWinner != Character.MIN_VALUE) winnerChar = horizontalWinner;
 		else if (verticalWinner != Character.MIN_VALUE) winnerChar = verticalWinner;
 		else if (diagonalWinner != Character.MIN_VALUE) winnerChar = diagonalWinner;
-		
-		if (winnerChar == player1.getChar()) return player1; 
-		if (winnerChar == player2.getChar()) return player2;
-		
-		return null;
+			
+		return winnerChar;
 	}
 	
 	public boolean gameEnded(){
