@@ -28,6 +28,10 @@ public class Board {
 		return this.board;
 	}
 
+	public ArrayList<Board> getGameHistory() {
+		return this.gameHistory;
+	}
+
 	public Board move(Player player, int row, int column) throws SameMoveException, InvalidMoveException {
 		if (!isPositionEmpty(row, column))
 			throw new SameMoveException(this.board[row][column]);
@@ -143,7 +147,7 @@ public class Board {
 
 		return Character.MIN_VALUE;
 	}
-	
+
 	private boolean isPositionEmpty(int row, int column) {
 		if (this.board[row][column] != Character.MIN_VALUE)
 			return false;
