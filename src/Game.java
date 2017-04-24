@@ -15,6 +15,8 @@ public class Game {
 			try {
 				board = currPlayer.nextMove(board);
 				currPlayer = nextPlayer(firstPlayer, secondPlayer, currPlayer);
+//				System.out.println("Player " + currPlayer.getChar());
+//				printBoard(board.getGameState());
 			} catch (SameMoveException sme) {
 				System.out.println(sme.getMessage());
 			} catch (Exception e) {
@@ -22,7 +24,7 @@ public class Game {
 			}
 		}
 
-		// printBoard(board.getGameState());
+//		 printBoard(board.getGameState());
 		char winner = board.gameWinner();
 		if (winner == firstPlayer.getChar())
 			return firstPlayer;
@@ -54,8 +56,9 @@ public class Game {
 		int gamesWon = 0, draws = 0, totalGames = 100;
 		char myChar = 'x';
 
-		Player firstPlayer = new SmartPlayer(myChar);
-		Player secondPlayer = new DumbPlayer('o');
+
+		Player firstPlayer = new DumbPlayer('o');
+		SmartPlayer secondPlayer = new SmartPlayer(myChar);
 		Player currPlayer = firstPlayer;
 		Player winner;
 
@@ -78,6 +81,7 @@ public class Game {
 				System.out.println("It's a draw!");
 				draws++;
 			}
+			secondPlayer.updateWeights(board.getGameHistory());
 		}
 
 		System.out.println(">> Total Games: " + totalGames);
