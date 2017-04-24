@@ -23,9 +23,6 @@ public class SmartPlayer extends DumbPlayer {
 	}
 
 	public void updateWeights(ArrayList<Board> history){
-		// Vtrain: get training value of board --> actual value 
-		// Vboard: get score of current board
-		
 		Queue<Double> trainingValues = this.getActualBoardValue(history);
 		double error;
 		int[] boardStateAnalysis;
@@ -90,7 +87,7 @@ public class SmartPlayer extends DumbPlayer {
 				continue;
 			}
 			
-			historyScores.add(this.getPredictedValue(history.get(i)));
+			historyScores.add(this.getPredictedValue(history.get(i+2)));
 		}
 		
 		return historyScores;
